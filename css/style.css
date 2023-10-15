@@ -119,3 +119,60 @@ body {
   justify-content: center;
   background-color: #8f6e5d;
 }
+
+/* Apply styles to the form element */
+form {
+  max-width: 600px; /* Limit the form width */
+  margin: 0 auto; /* Center the form horizontally */
+  padding: 20px; /* Add some padding for content */
+}
+
+/* Style labels */
+label {
+  display: block; /* Place labels on separate lines */
+  margin-bottom: 10px; /* Add space below labels */
+}
+
+/* Style input elements */
+input[type="text"],
+textarea,
+select {
+  width: 100%; /* Make input elements expand to full width */
+  padding: 10px; /* Add some padding inside input elements */
+  margin-bottom: 15px; /* Add space below input elements */
+  border: 1px solid #ffa500; /* Orange border */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Style the submit button */
+input[type="submit"] {
+  background-color: #ffa500; /* Orange background for the button */
+  color: #fff; /* White text color for the button */
+  padding: 10px 20px; /* Add padding inside the button */
+  border: none; /* Remove button border */
+  border-radius: 4px; /* Rounded corners for the button */
+  cursor: pointer; /* Change cursor on hover */
+  font-weight: bold; /* Bold text for the button */
+}
+
+/* Hover effect for the submit button */
+input[type="submit"]:hover {
+  background-color: #ff7f00; /* Slightly darker orange on hover */
+}
+
+/* Additional styling for the date input */
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ffa500;
+  border-radius: 4px;
+  background-color: white; /* Set a white background for date input */
+}
+
+.form-container {
+  background-color: rgb(152, 84, 35); /* Dark brown background color */
+  font-family: "Poppins", Courier, monospace;
+  color: var(--font-color);
+  font-size: large;
+}
