@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const IncidentsModel = require('../models/IncidentModal');
+const { db } = require('../config/databaseConnection');
+
+console.log()
 
 router.get('/get-incidents', (req, res) => {
-    const query = 'SELECT * FROM table1';
+    console.log(db);
+    const query = 'SELECT * FROM `sql_workbench`.`incidents`';
     db.query(query, (error, results) => {
       if (error) {
         console.error('Error executing MySQL query: ' + error.stack);

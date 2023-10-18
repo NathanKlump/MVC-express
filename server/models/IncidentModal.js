@@ -1,8 +1,10 @@
 const mysql = require('mysql2');
+const { db } = require('../config/databaseConnection');
 
 const IncidentsModel = {
     createIncident: (incidentData, callback) => {
-      pool.query(
+
+      db.query(
         'INSERT INTO Incidents (IncidentDate, Category, SubCategory, Location, State, Source, Name) VALUES (?, ?, ?, ?, ?, ?, ?)',
         [
           incidentData.IncidentDate,

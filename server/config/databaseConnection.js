@@ -1,28 +1,31 @@
 const mysql = require('mysql2');
 
-let dbConnection = null;
+const db = mysql.createConnection({
+  //vars will be in .env
+  host: '127.0.0.1',
+  user: 'root',
+  password: 'Nakl_3349',
+  database: 'sql_workbench'
+});
+
 
 function connect() {
-  dbConnection = mysql.createConnection({
-    //vars will be in .env
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'Nakl_3349',
-    database: 'sql_workbench'
-  });
-
-  dbConnection.connect((err) => {
-    if (err) {
-      console.error('Error connecting to the database: ' + err.stack);
-      return;
-    }
-    console.log('Connected to the database');
+  return new Promise((resolve, reject) => {
+    db.connect((err) => {
+      if (err) {
+        console.error('Error connecting to the database: ' + err.stack);
+        reject(err);
+      } else {
+        console.log('Connected to the database');
+        resolve();
+      }
+    });
   });
 }
 
 function disconnect() {
-  if (dbConnection) {
-    dbConnection.end((err) => {
+  if (db) {
+    db.end((err) => {
       if (err) {
         console.error('Error disconnecting from the database: ' + err.stack);
         return;
@@ -33,6 +36,7 @@ function disconnect() {
 }
 
 module.exports = {
+  db, // Expose the db
   connect,
   disconnect
 };
