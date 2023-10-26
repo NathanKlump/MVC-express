@@ -1,11 +1,14 @@
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 const { connect, disconnect } = require('./config/databaseConnection');
 
 connect();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static('public')); // If you have static files
 

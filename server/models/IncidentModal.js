@@ -5,15 +5,15 @@ const IncidentsModel = {
     createIncident: (incidentData, callback) => {
 
       db.query(
-        'INSERT INTO Incidents (IncidentDate, Category, SubCategory, Location, State, Source, Name) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO Incidents (Description, date, Category, SubCategory, State, Source, Name) VALUES (?, ?, ?, ?, ?, ?, ?)',
         [
-          incidentData.IncidentDate,
-          incidentData.Category,
-          incidentData.SubCategory,
-          incidentData.Location,
-          incidentData.State,
-          incidentData.Source,
-          incidentData.Name
+          incidentData.description,
+          incidentData.date,
+          incidentData.category,
+          incidentData.subcategory,
+          incidentData.state,
+          incidentData.source,
+          incidentData.name
         ],
         (error, results) => {
           if (error) {
