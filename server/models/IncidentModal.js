@@ -7,13 +7,13 @@ const IncidentsModel = {
       db.query(
         'INSERT INTO Incidents (Description, date, Category, SubCategory, State, Source, Name) VALUES (?, ?, ?, ?, ?, ?, ?)',
         [
-          incidentData.description,
-          incidentData.date,
-          incidentData.category,
-          incidentData.subcategory,
-          incidentData.state,
-          incidentData.source,
-          incidentData.name
+          incidentData.INCI_DESCRIPTION,
+          incidentData.INCI_DATE,
+          incidentData.INCI_CATEGORY,
+          incidentData.INCI_SUB_CATEGORY,
+          incidentData.INCI_STATE_UT,
+          incidentData.INCI_SOURCE,
+          incidentData.INCI_NAME
         ],
         (error, results) => {
           if (error) {

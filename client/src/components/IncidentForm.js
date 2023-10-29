@@ -1,173 +1,270 @@
-import React, { useState } from "react";
-import { states } from "../constants/Constants";
-import { addIncident } from '../api/API';
+import React from "react";
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
+import * as Yup from "yup";
 
-function Report() {
-  const [values, setValues] = useState({
-    description: "",
-    date: "",
-    category: "",
-    subcategory: "",
-    state: "",
-    source: "",
-    name: "",
+import {
+  states,
+  category_Caste_Discrimination,
+  category_Caste_based_violence,
+  category_Hate,
+  category_Vigilante_violence,
+  category_Sexual_violence,
+  category_State,
+} from "../constants/Constants";
+import { addIncident } from "../api/API";
+
+export default function CreateReport() {
+  const getSubcategoryOptions = (category) => {
+    switch (category) {
+      case "Caste Discrimination":
+        return category_Caste_Discrimination;
+      case "Caste-based violence":
+        return category_Caste_based_violence;
+      case "Hate/Hate Crimes/ Hate Speech by the Majoritarian Community":
+        return category_Hate;
+      case "Vigilante violence":
+        return category_Vigilante_violence;
+      case "Sexual violence":
+        return category_Sexual_violence;
+      case "State/ Police/ Judicial Violence":
+        return category_State;
+
+      default:
+        return [];
+    }
+  };
+
+  const initialValues = {
+    INCI_DESCRIPTION: "",
+    INCI_DATE: "",
+    INCI_CATEGORY: "",
+    INCI_SUB_CATEGORY: "",
+    INCI_PLACE_CITY_DISTRICT: "",
+    INCI_STATE_UT: "",
+    INCI_SOURCE: "",
+    INCI_NAME: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    INCI_DESCRIPTION: Yup.string().required(),
+    INCI_DATE: Yup.date().required(),
+    INCI_CATEGORY: Yup.string().required(),
+    INCI_SUB_CATEGORY: Yup.string().required(),
+    INCI_PLACE_CITY_DISTRICT: Yup.string().required(),
+    INCI_STATE_UT: Yup.string().required(),
+    INCI_SOURCE: Yup.string(),
+    INCI_NAME: Yup.string(),
   });
 
-  const handleChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-    console.log(values);
+  const onSubmit = (data) => {
+    addIncident(data);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); 
+  function SubcategoryDropdown() {
+    const formik = useFormikContext();
 
-    //hit the api
-    addIncident(values)
-    console.log("Form submitted: ", values);
-  };
+    return (
+      <div className="">
+        <label
+          htmlFor="inciCategory"
+          className="block text-sm font-medium text-font"
+        >
+          Category
+        </label>
+        <div className="relative rounded-md shadow-sm">
+          <Field
+            as="select"
+            name="INCI_CATEGORY"
+            id="inciCategory"
+            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm p-3 border-gray-300 rounded-md"
+          >
+            <option value="">Select a category</option>
+            <option value="Caste Discrimination">Caste Discrimination</option>
+            <option value="Caste-based violence">Caste-based violence</option>
+            <option value="Hate/Hate Crimes/ Hate Speech by the Majoritarian Community">
+              Hate/Hate Crimes/ Hate Speech by the Majoritarian Community
+            </option>
+            <option value="Vigilante violence">Vigilante violence</option>
+            <option value="Sexual violence">Sexual violence</option>
+            <option value="State/ Police/ Judicial Violence">
+              State/ Police/ Judicial Violence
+            </option>
+          </Field>
+        </div>
+        <ErrorMessage
+          name="INCI_CATEGORY"
+          component="span"
+          className="text-red-500 text-xs mt-1"
+        />
+
+        <label
+          htmlFor="inciSubCategory"
+          className="block text-sm font-medium text-font mt-4"
+        >
+          Subcategory
+        </label>
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <Field
+            as="select"
+            name="INCI_SUB_CATEGORY"
+            id="inciSubCategory"
+            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm border-gray-300 rounded-md p-3"
+          >
+            <option value="">Select a subcategory</option>
+            {getSubcategoryOptions(formik.values.INCI_CATEGORY).map(
+              (INCI_SUB_CATEGORY, index) => (
+                <option key={index} value={INCI_SUB_CATEGORY}>
+                  {INCI_SUB_CATEGORY}
+                </option>
+              )
+            )}
+          </Field>
+        </div>
+        <ErrorMessage
+          name="INCI_SUB_CATEGORY"
+          component="span"
+          className="text-red-500 text-xs mt-1"
+        />
+      </div>
+    );
+  }
 
   return (
-    <div className="p-8 bg-gray-100">
-      <h1 className="text-2xl font-bold mb-4">Sample Form</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Description:
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            rows="4"
-            className="mt-1 p-2 w-full border rounded-md"
-            required
-            onChange={handleChange}
-          ></textarea>
-        </div>
+    <div className="container mx-auto p-4 bg-main my-24 w-1/2 rounded-lg items-center flex flex-col">
+      <h1 className="text-secondary text-6xl mb-4">INCIDENT FORM</h1>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form className="formContainer w-full rounded-lg shadow-md">
+          <div className="mb-4">
+            <label
+              htmlFor="inciDescription"
+              className="block text-sm font-medium text-font"
+            >
+              Description:
+            </label>
+            <Field
+              id="inciDescription"
+              name="INCI_DESCRIPTION"
+              placeholder="Enter description..."
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+            <ErrorMessage
+              name="INCI_DESCRIPTION"
+              component="span"
+              className="text-red-500 text-xs mt-1"
+            />
+          </div>
 
-        <div>
-          <label
-            htmlFor="date"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Date:
-          </label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            className="mt-1 p-2 w-full border rounded-md"
-            required
-            onChange={handleChange}
-          />
-        </div>
+          <div className="mb-4">
+            <label
+              htmlFor="inciDate"
+              className="block text-sm font-medium text-font"
+            >
+              Date:
+            </label>
+            <Field
+              type="date"
+              id="inciDate"
+              name="INCI_DATE"
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+            <ErrorMessage
+              name="INCI_DATE"
+              component="span"
+              className="text-red-500 text-xs mt-1"
+            />
+          </div>
 
-        <div>
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Category:
-          </label>
-          <select
-            id="category"
-            name="category"
-            className="mt-1 p-2 w-full border rounded-md"
-            required
-            onChange={handleChange}
-          >
-            <option value="category1">Category 1</option>
-            <option value="category2">Category 2</option>
-            <option value="category3">Category 3</option>
-          </select>
-        </div>
+          <SubcategoryDropdown />
 
-        <div>
-          <label
-            htmlFor="subcategory"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Subcategory:
-          </label>
-          <select
-            id="subcategory"
-            name="subcategory"
-            className="mt-1 p-2 w-full border rounded-md"
-            required
-            onChange={handleChange}
-          >
-            <option value="subcat1">Subcategory 1</option>
-            <option value="subcat2">Subcategory 2</option>
-            <option value="subcat3">Subcategory 3</option>
-          </select>
-        </div>
+          <div className="mb-4 mt-4">
+            <label
+              htmlFor="inciCity"
+              className="block text-sm font-medium text-font"
+            >
+              City:
+            </label>
+            <Field
+              id="inciCity"
+              name="INCI_PLACE_CITY_DISTRICT"
+              placeholder="Enter City..."
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+            <ErrorMessage
+              name="INCI_PLACE_CITY_DISTRICT"
+              component="span"
+              className="text-red-500 text-xs mt-1"
+            />
+          </div>
 
-        <div>
-          <label
-            htmlFor="state"
-            className="block text-sm font-medium text-gray-600"
-          >
-            State:
-          </label>
-          <select
-            id="state"
-            name="state"
-            className="mt-1 p-2 w-full border rounded-md"
-            required
-            onChange={handleChange}
-          >
-            {states.map((state, index) => (
-              <option key={index} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className="mb-4">
+            <label
+              htmlFor="inciState"
+              className="block text-sm font-medium text-font"
+            >
+              State:
+            </label>
+            <Field
+              as="select"
+              id="inciState"
+              name="INCI_STATE_UT"
+              className="mt-1 p-2 w-full border rounded-md"
+            >
+              <option value="">Select a state</option>
+              {states.map((state, index) => (
+                <option key={index} value={state}>
+                  {state}
+                </option>
+              ))}
+            </Field>
+            <ErrorMessage
+              name="INCI_STATE_UT"
+              component="span"
+              className="text-red-500 text-xs mt-1"
+            />
+          </div>
 
-        <div>
-          <label
-            htmlFor="source"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Source (optional):
-          </label>
-          <input
-            type="text"
-            id="source"
-            name="source"
-            className="mt-1 p-2 w-full border rounded-md"
-            onChange={handleChange}
-          />
-        </div>
+          <div className="mb-4">
+            <label
+              htmlFor="inciSource"
+              className="block text-sm font-medium text-font"
+            >
+              Source: (Optional)
+            </label>
+            <Field
+              id="inciSource"
+              name="INCI_SOURCE"
+              placeholder="Enter Source..."
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
 
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Name (optional):
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className="mt-1 p-2 w-full border rounded-md"
-            onChange={handleChange}
-          />
-        </div>
+          <div className="mb-4">
+            <label
+              htmlFor="inciName"
+              className="block text-sm font-medium text-font"
+            >
+              Name: (Optional)
+            </label>
+            <Field
+              id="inciName"
+              name="INCI_NAME"
+              placeholder="Enter Name..."
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
 
-        <div>
-          <input
+          <button
             type="submit"
-            value="Submit"
-            className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-          />
-        </div>
-      </form>
+            className="bg-secondary text-white p-2 rounded-md hover:bg-yellow-800 focus:ring-opacity-50 mt-4 w-full"
+          >
+            Submit Incident Report
+          </button>
+        </Form>
+      </Formik>
     </div>
   );
 }
-
-export default Report;
