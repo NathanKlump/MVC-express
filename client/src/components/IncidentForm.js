@@ -19,8 +19,9 @@ function Report() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Stop the form from reloading the page
-    // Do something with the form values, like sending them to an API
+    event.preventDefault(); 
+
+    //hit the api
     addIncident(values)
     console.log("Form submitted: ", values);
   };

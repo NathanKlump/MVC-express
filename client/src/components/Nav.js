@@ -11,12 +11,6 @@ function Nav() {
         <Link to="/" className="text-white px-4 py-4 rounded text-lg no-underline hover:text-yellow-500 transition duration-300">
           Home
         </Link>
-        <Link to="/methodology" className="text-white px-4 py-4 rounded text-lg no-underline hover:text-yellow-500 transition duration-300">
-          Methodology
-        </Link>
-        <Link to="/dashboard" className="text-white px-4 py-4 rounded text-lg no-underline hover:text-yellow-500 transition duration-300">
-          Dashboard
-        </Link>
         <Link to="/report-incident" className="text-white px-4 py-4 rounded text-lg no-underline hover:text-yellow-500 transition duration-300">
           Report An Incident
         </Link>
