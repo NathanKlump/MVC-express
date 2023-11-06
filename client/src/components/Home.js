@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
 import { getIncidents } from '../api/API';
-
 import Heatmap from './Heatmap';
+import Map from './Map';
 
 function Home() {
     const [incidents, setIncidents] = useState(null);
@@ -23,13 +22,9 @@ function Home() {
     <p className="mb-8">
       Religious violence in India has a complex history and multiple causes, including socio-economic factors, cultural clashes, and political motivations.
     </p>
-    <div className="bg-gray-300 h-64 w-full mb-8">
-      <p className="text-center text-gray-700 pt-28">
-        Map Placeholder
-      </p>
-    </div>
+    {incidents ? <Map incidents={incidents}/> : <p>Loading incidents...</p>}
+
     <div className='text-center text-gray-100 pt-28'>
-      {/* <h2 className="text-xl font-semibold mb-2">Graphs:</h2> */}
       <Heatmap />
     </div>
     <div>
