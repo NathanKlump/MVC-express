@@ -4,7 +4,7 @@ import axios from 'axios';
 export const getIncidents = async () => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/incidents/get-incidents`);
-    console.log('Incidents:', response.data);
+    return response.data;
   } catch (error) {
     console.error('Error fetching incidents:', error);
   }
