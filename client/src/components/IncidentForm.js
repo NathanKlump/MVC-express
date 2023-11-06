@@ -47,7 +47,9 @@ export default function CreateReport() {
 
   const validationSchema = Yup.object().shape({
     INCI_DESCRIPTION: Yup.string().required(),
-    INCI_DATE: Yup.date().required(),
+    INCI_DATE: Yup.date()
+    .max(new Date(), "The date of the incident must be less than or equal to the current date")//avoid users from filling in the wrong date
+    .required(),
     INCI_CATEGORY: Yup.string().required(),
     INCI_SUB_CATEGORY: Yup.string().required(),
     INCI_PLACE_CITY_DISTRICT: Yup.string().required(),
