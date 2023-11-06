@@ -19,10 +19,7 @@ router.get('/get-incidents', (req, res) => {
 });
 
 router.post('/add-incident', (req, res) => {
-  // Get the data from the request body
   const incidentData = req.body;
-
-  // Call a function to insert the data into the database
   IncidentsModel.createIncident(incidentData, (error, insertId) => {
     if (error) {
       console.error('Error inserting incident data:', error);
@@ -33,6 +30,5 @@ router.post('/add-incident', (req, res) => {
     }
   });
 });
-
 
 module.exports = router;

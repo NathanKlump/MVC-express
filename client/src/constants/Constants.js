@@ -110,6 +110,7 @@ export const category_State = [
   "Arbitrary arrest",
 ];
 
+
 /*
 export const categories = [
   "Select a category",

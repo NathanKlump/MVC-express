@@ -10,7 +10,7 @@ connect();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); // If you have static files
+app.use(express.static('public'));
 
 // Routes
 const IncidentController = require('./controllers/IncidentController');
