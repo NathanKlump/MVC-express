@@ -3,7 +3,7 @@ import InteractiveHeatmap from "./HeatMapConstructor";
 import "./heatmap.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import ReactTooltip from "react-tooltip";
 const getColorForCount = (count) => {
   const colorClasses = [
     "color-scale-0",
@@ -47,6 +47,7 @@ const Heatmap = () => {
   // Use useEffect to set heatmapData when newData changes
   useEffect(() => {
     setHeatmapData(newData);
+    ReactTooltip.rebuild();
   }, [newData]);
 
   // console.log(heatmapData);
@@ -85,7 +86,9 @@ const Heatmap = () => {
     // Configuration for react-tooltip
     return {
       "data-tip": `Date: ${value.date}, Count: ${value.count}`,
+      
     };
+    
   };
   const currentYear = new Date().getFullYear(); //Code to get the year of the current date, avoid users from filling in the wrong date(>current date)
   const [selectedYear, setSelectedYear] = useState(currentYear);
