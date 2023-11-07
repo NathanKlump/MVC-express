@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import IncidentForm from './components/IncidentForm';
 import Home from './components/Home';
 import Contact from './components/Contact';
+import Method from './components/Method';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/method" element={<Method />} />
         <Route path="/report-incident" element={<IncidentForm />} />
         <Route path="/contact-us" element={<Contact />} />
       </Routes>

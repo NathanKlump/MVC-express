@@ -11,6 +11,9 @@ function Nav() {
         <Link to="/" className="text-white px-4 py-4 rounded text-lg no-underline hover:text-yellow-500 transition duration-300">
           Home
         </Link>
+        <Link to="/method" className="text-white px-4 py-4 rounded text-lg no-underline hover:text-yellow-500 transition duration-300">
+          Method
+        </Link>
         <Link to="/report-incident" className="text-white px-4 py-4 rounded text-lg no-underline hover:text-yellow-500 transition duration-300">
           Report An Incident
         </Link>

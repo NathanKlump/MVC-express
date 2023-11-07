@@ -42,14 +42,18 @@ export default function CreateReport() {
     INCI_PLACE_CITY_DISTRICT: "",
     INCI_STATE_UT: "",
     INCI_SOURCE: "",
+    SELF_REPORTING: false,
     INCI_NAME: "",
   };
 
   const validationSchema = Yup.object().shape({
     INCI_DESCRIPTION: Yup.string().required(),
     INCI_DATE: Yup.date()
-    .max(new Date(), "The date of the incident must be less than or equal to the current date")//avoid users from filling in the wrong date
-    .required(),
+      .max(
+        new Date(),
+        "The date of the incident must be less than or equal to the current date"
+      ) //avoid users from filling in the wrong date
+      .required(),
     INCI_CATEGORY: Yup.string().required(),
     INCI_SUB_CATEGORY: Yup.string().required(),
     INCI_PLACE_CITY_DISTRICT: Yup.string().required(),
@@ -59,6 +63,14 @@ export default function CreateReport() {
   });
 
   const onSubmit = (data) => {
+    if (data.INCI_NAME === ''){
+      data.INCI_NAME = 'Anonymous'
+    }
+    if (data.INCI_SOURCE === ''){
+      data.INCI_SOURCE = 'Self Reported'
+    }
+
+    console.log(data)
     addIncident(data);
   };
 
@@ -130,6 +142,47 @@ export default function CreateReport() {
       </div>
     );
   }
+
+  const SourceField = () => {
+    const { values, setFieldValue } = useFormikContext();
+    
+    return (
+      <div className="mb-4 flex items-center">
+        <div className="flex-1">
+          <label
+            htmlFor="inciSource"
+            className={`block text-sm font-medium text-font ${values.SELF_REPORTING ? 'text-gray-700' : 'text-font'}`}
+          >
+            Source: (Optional)
+          </label>
+          <Field
+            id="inciSource"
+            name="INCI_SOURCE"
+            placeholder="Enter Source..."
+            disabled={values.SELF_REPORTING}
+            className={`mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${values.SELF_REPORTING ? 'bg-neutral-500 text-gray-500 cursor-not-allowed' : 'bg-white'}`}
+          />
+        </div>
+        <div className="flex flex-col items-center ml-4">
+          <label htmlFor="selfReporting" className="mb-2 block text-sm font-medium text-font">
+            Self Reporting
+          </label>
+          <Field
+            type="checkbox"
+            id="selfReporting"
+            name="SELF_REPORTING"
+            className="h-7 w-7 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+            onChange={(e) => {
+              setFieldValue('SELF_REPORTING', e.target.checked);
+              if (e.target.checked) {
+                setFieldValue('INCI_SOURCE', '');
+              }
+            }}
+          />
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="container mx-auto p-4 bg-main my-24 w-1/2 rounded-lg items-center flex flex-col">
@@ -228,22 +281,7 @@ export default function CreateReport() {
               className="text-red-500 text-xs mt-1"
             />
           </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="inciSource"
-              className="block text-sm font-medium text-font"
-            >
-              Source: (Optional)
-            </label>
-            <Field
-              id="inciSource"
-              name="INCI_SOURCE"
-              placeholder="Enter Source..."
-              className="mt-1 p-2 w-full border rounded-md"
-            />
-          </div>
-
+          <SourceField />
           <div className="mb-4">
             <label
               htmlFor="inciName"
