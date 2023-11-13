@@ -32,8 +32,14 @@ async function getCoordinates(incidentData) {
     } catch (error) {
       console.error(`Error getting city coordinates: ${error}. Now using state coordinates...`);
 
-      [coords.lat, coords.lon] = stateCoords[incidentData.INCI_STATE_UT];
-      coords = getRandomOffset(coords.lat, coords.lon, 1);
+      if (stateCoords[incidentData.INCI_STATE_UT] !== undefined) {
+        [coords.lat, coords.lon] = stateCoords[incidentData.INCI_STATE_UT];
+        coords = getRandomOffset(coords.lat, coords.lon, 1);
+      } else {
+          // Handle the undefined case, maybe set default values or log an error
+          console.log(`Coordinates not found for state: ${incidentData.INCI_STATE_UT}`);
+          coords = getRandomOffset("21.814333", "78.158709", 4.5);
+      }
     }
 
     return {

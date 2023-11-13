@@ -28,7 +28,7 @@ const Heatmap = () => {
 
   const updatedData = dataReport.map((item) => ({
     ...item,
-    date: item.date.split("T")[0],
+    date: item.INCI_DATE.split("T")[0],
   }));
 
   const dateCounts = {};

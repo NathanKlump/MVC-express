@@ -14,7 +14,11 @@ app.use(express.static('public'));
 
 // Routes
 const IncidentController = require('./controllers/IncidentController');
+//const FormatDataController = require('./controllers/FormatDataController');
 app.use('/incidents', IncidentController);
+//app.use('/dev', FormatDataController);
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -3,10 +3,7 @@ const router = express.Router();
 const IncidentsModel = require("../models/IncidentModal");
 const { db } = require("../config/databaseConnection");
 
-console.log();
-
 router.get("/get-incidents", (req, res) => {
-  console.log(db);
   const query = "SELECT * FROM `sql_workbench`.`incidents`";
   db.query(query, (error, results) => {
     if (error) {

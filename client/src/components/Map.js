@@ -21,7 +21,7 @@ const Map = ({ incidents }) => {
         {incidents.map((incident, index) => ( 
           <Marker
             key={index}
-            position={[incident.latitude, incident.longitude]}
+            position={[incident.INCI_LATITUDE, incident.INCI_LONGITUDE]}
             icon={customIcon}
           >
             <Popup>

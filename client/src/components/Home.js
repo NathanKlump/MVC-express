@@ -10,6 +10,7 @@ function Home() {
         getIncidents()
           .then((data) => {
             setIncidents(data);
+            console.log(data);
           })
           .catch((error) => {
             console.error("An error occurred while fetching incidents:", error);
@@ -22,7 +23,8 @@ function Home() {
     <p className="mb-8">
       Religious violence in India has a complex history and multiple causes, including socio-economic factors, cultural clashes, and political motivations.
     </p>
-    {incidents ? <Map incidents={incidents}/> : <p>Loading incidents...</p>}
+
+    { incidents  ? <Map incidents={incidents}/> : <p>Loading incidents...</p> }
 
     <div className='text-center text-gray-100 pt-28'>
       <Heatmap />
