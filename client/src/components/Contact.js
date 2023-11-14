@@ -3,13 +3,8 @@ import { useForm } from "react-hook-form";
 const Contact = () => {
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
-  };
 
   return (
       <div className="container mx-auto p-4 bg-main my-48 w-1/2 rounded-lg">
@@ -24,7 +19,6 @@ const Contact = () => {
         {/* FORM */}
         <div className="mt-10">
           <form
-            onSubmit={handleSubmit(onSubmit)}
             className="space-y-5"
             action={`https://formsubmit.co/${process.env.REACT_APP_EMAIL}`}
             method="POST"
