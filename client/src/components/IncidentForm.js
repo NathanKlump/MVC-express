@@ -26,9 +26,8 @@ export default function CreateReport() {
         return category_Vigilante_violence;
       case "Sexual violence":
         return category_Sexual_violence;
-      case "State/ Police/ Judicial Violence":
+      case "State / Police/ Judicial Violence"://Please do not change any spaces, it needs to be consistent with the database
         return category_State;
-
       default:
         return [];
     }
@@ -100,9 +99,10 @@ export default function CreateReport() {
             </option>
             <option value="Vigilante violence">Vigilante violence</option>
             <option value="Sexual violence">Sexual violence</option>
-            <option value="State/ Police/ Judicial Violence">
-              State/ Police/ Judicial Violence
+            <option value="State / Police/ Judicial Violence">
+              State / Police/ Judicial Violence
             </option>
+            {/* Please do not change any spaces for value, it needs to be consistent with the database */}
           </Field>
         </div>
         <ErrorMessage
