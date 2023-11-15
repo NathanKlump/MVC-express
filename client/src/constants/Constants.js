@@ -1,34 +1,34 @@
-//consistent with 2022-2023 old states databse, and add some new state
+//consistent with 2022-2023 old states databse
 export const states = [
-  "Ahemdabad",
+  "Ahemdabad",//not state, only exist in 2022-2023 old databse
   "Andhra Pradesh",
   "Arunachal Pradesh",
   "Assam",
   "Bihar",
   "Chhattisgarh",
-  "Delhi",
+  "Delhi",//
   "Goa",
   "Gujarat",
   "Haryana",
   "Himachal Pradesh",
-  "Hyderabad",
-  "Jammu and Kashmir",
-  "Jammu",
+  "Hyderabad",//
+  "Jammu and Kashmir",//don't change this space
+  "Jammu",//
   "Jharkhand",
   "Karnataka",
   "Kerala",
-  "Ladakh",
-  "Lakshadweep",
+  "Ladakh",//
+  "Lakshadweep",//
   "Madhya Pradesh",
   "Maharashtra",
   "Manipur",
   "Meghalaya",
   "Mizoram",
-  "Mumbai",
+  "Mumbai",//
   "Nagaland",
-  "New Delhi",
+  "New Delhi",//
   "Odisha",
-  "Puducherry",
+  "Puducherry",//
   "Punjab",
   "Rajasthan",
   "Sikkim",
@@ -36,6 +36,38 @@ export const states = [
   "Telangana",
   "Tripura",
   "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+];
+
+//List of 28 States in India: https://en.wikipedia.org/wiki/States_and_union_territories_of_India
+export const new_states_api = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
   "Uttarakhand",
   "West Bengal",
 ];
