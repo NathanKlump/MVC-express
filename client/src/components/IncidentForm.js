@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import * as Yup from "yup";
 
 import {
-  states,
+  new_states_api,
   category_Caste_Discrimination,
   category_Caste_based_violence,
   category_Hate,
@@ -269,7 +269,7 @@ export default function CreateReport() {
               className="mt-1 p-2 w-full border rounded-md"
             >
               <option value="">Select a state</option>
-              {states.map((state, index) => (
+              {new_states_api.map((state, index) => (
                 <option key={index} value={state}>
                   {state}
                 </option>
