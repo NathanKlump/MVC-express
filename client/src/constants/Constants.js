@@ -54,7 +54,7 @@ export const new_states_api = [
   "Jharkhand",
   "Karnataka",
   "Kerala",
-  "Madhya Pradesh",
+  "Madhya Pradesh",
   "Maharashtra",
   "Manipur",
   "Meghalaya",
@@ -67,7 +67,7 @@ export const new_states_api = [
   "Tamil Nadu",
   "Telangana",
   "Tripura",
-  "Uttar Pradesh",
+  "Uttar Pradesh",
   "Uttarakhand",
   "West Bengal",
 ];
