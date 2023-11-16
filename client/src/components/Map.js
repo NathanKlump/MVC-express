@@ -13,7 +13,7 @@ const Map = ({ incidents }) => {
   });
 
   return (
-    <div className='map-container'>
+    <div className='map-container items-center flex justify-center'>
       <MapContainer center={[20.5937, 78.9629]} maxBounds={[[6.75, 68.1],[37.1, 97.4]]} zoom={4}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
