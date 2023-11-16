@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-
 import {
   BarChart,
   Bar,
@@ -12,18 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { categories } from "../constants/Constants";
-const CategoryBarChart = () => {
-  const [incidents, setReport] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/incidents/get-incidents")
-      .then((response) => {
-        setReport(response.data);
-      });
-  }, []);
-  console.log(incidents);
-
+const CategoryBarChart = ({ incidents }) => {
   const [categoryCounts, setCategoryCounts] = useState({});
 
   useEffect(() => {
@@ -31,7 +18,7 @@ const CategoryBarChart = () => {
       const counts = {};
 
       incidents.forEach((incident) => {
-        const incidentDate = new Date(incident.date);
+        const incidentDate = new Date(incident.INCI_DATE);
         const yearMonth = `${incidentDate.getFullYear()}-${(
           incidentDate.getMonth() + 1
         )
@@ -42,10 +29,10 @@ const CategoryBarChart = () => {
           counts[yearMonth] = {};
         }
 
-        if (!counts[yearMonth][incident.Category]) {
-          counts[yearMonth][incident.Category] = 1;
+        if (!counts[yearMonth][incident.INCI_CATEGORY]) {
+          counts[yearMonth][incident.INCI_CATEGORY] = 1;
         } else {
-          counts[yearMonth][incident.Category]++;
+          counts[yearMonth][incident.INCI_CATEGORY]++;
         }
       });
 
@@ -54,7 +41,7 @@ const CategoryBarChart = () => {
 
     calculateCategoryCounts();
   }, [incidents]);
-  console.log(categoryCounts);
+  // console.log(categoryCounts);
 
   // Transform the counts into the desired format
   const resultArray = Object.entries(categoryCounts).map(
