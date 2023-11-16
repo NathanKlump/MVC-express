@@ -60,3 +60,17 @@
 .legend-square-3 {
   background-color: #007db8;
 }
+
+/*set about week label and heat map*/
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.5fr 3fr;
+  align-items: center;
+  margin-left: -100px;
+}
+.dayLabels-container {
+  height: 100px;
+  font-size: 13px;
+  color: gray;
+  margin-left: 120px;
+}

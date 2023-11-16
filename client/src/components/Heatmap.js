@@ -92,6 +92,8 @@ const Heatmap = ({ incidents }) => {
   const startDate = new Date(selectedYear + "-01-01");
   const endDate = new Date(selectedYear + "-12-31");
 
+  // Define the labels for the days of the week
+  const dayLabels = ["Mon.", "Tue.", "Wed.", "Thur.", "Fri.", "Sat.", "Sun."];
   return (
     <div className="calendar-container">
       <div classNmae="flex-container">
@@ -121,16 +123,31 @@ const Heatmap = ({ incidents }) => {
         </div>
       </div>
 
-      <InteractiveHeatmap
-        values={heatmapData}
-        startDate={startDate}
-        endDate={endDate}
-        onClick={handleClick}
-        onMouseOver={handleMouseOver}
-        onMouseLeave={handleMouseLeave}
-        classForValue={classForValue}
-        tooltipDataAttrs={getTooltipDataAttrs}
-      />
+      <div className="grid-container">
+        <div className="dayLabels-container">
+          {/* Add the day labels here */}
+          <div className="day-labels">
+            {dayLabels.map((label, index) => (
+              <div key={index} className="day-label">
+                {label}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="heatmap-container">
+          <InteractiveHeatmap
+            values={heatmapData}
+            startDate={startDate}
+            endDate={endDate}
+            onClick={handleClick}
+            onMouseOver={handleMouseOver}
+            onMouseLeave={handleMouseLeave}
+            classForValue={classForValue}
+            tooltipDataAttrs={getTooltipDataAttrs}
+          />
+        </div>
+      </div>
     </div>
   );
 };
