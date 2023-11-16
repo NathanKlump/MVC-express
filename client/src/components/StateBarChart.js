@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-
 import {
   BarChart,
   Bar,
@@ -12,18 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { states } from "../constants/Constants";
-const StateBarChart = () => {
-  const [incidents, setReport] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/incidents/get-incidents")
-      .then((response) => {
-        setReport(response.data);
-      });
-  }, []);
-  //console.log(incidents);
-
+const StateBarChart = ({ incidents }) => {
   const [stateCounts, setStateCounts] = useState({});
 
   useEffect(() => {
@@ -31,7 +18,7 @@ const StateBarChart = () => {
       const counts = {};
 
       incidents.forEach((incident) => {
-        const incidentDate = new Date(incident.date);
+        const incidentDate = new Date(incident.INCI_DATE);
         const yearMonth = `${incidentDate.getFullYear()}-${(
           incidentDate.getMonth() + 1
         )
@@ -42,10 +29,10 @@ const StateBarChart = () => {
           counts[yearMonth] = {};
         }
 
-        if (!counts[yearMonth][incident.State]) {
-          counts[yearMonth][incident.State] = 1;
+        if (!counts[yearMonth][incident.INCI_STATE_UT]) {
+          counts[yearMonth][incident.INCI_STATE_UT] = 1;
         } else {
-          counts[yearMonth][incident.State]++;
+          counts[yearMonth][incident.INCI_STATE_UT]++;
         }
       });
 
@@ -54,7 +41,7 @@ const StateBarChart = () => {
 
     calculateStateCounts();
   }, [incidents]);
-  console.log(stateCounts);
+  // console.log(stateCounts);
 
   // Transform the counts into the desired format
   const resultArray = Object.entries(stateCounts).map(([months, State]) => {

@@ -1,7 +1,6 @@
 import React from "react";
 import InteractiveHeatmap from "./HeatMapConstructor";
-import "./heatmap.css";
-import axios from "axios";
+import "../css/heatmap.css";
 import { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 const getColorForCount = (count) => {
@@ -14,19 +13,9 @@ const getColorForCount = (count) => {
   return colorClasses[count] || "color-scale-3";
 };
 
-const Heatmap = () => {
-  const [dataReport, setReport] = useState([]);
+const Heatmap = ({ incidents }) => {
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/incidents/get-incidents")
-      .then((response) => {
-        //console.log(response.data);
-        setReport(response.data);
-      });
-  }, []);
-
-  const updatedData = dataReport.map((item) => ({
+  const updatedData = incidents.map((item) => ({
     ...item,
     date: item.INCI_DATE.split("T")[0],
   }));
