@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getIncidents } from "../api/API";
 import Heatmap from "./Heatmap";
 import Map from "./Map";
+import CategoryBarChart from "./CategoryBarChart";
+import StateBarChart from "./StateBarChart";
 
 function Home() {
   const [incidents, setIncidents] = useState(null);
@@ -10,6 +12,7 @@ function Home() {
     getIncidents()
       .then((data) => {
         setIncidents(data);
+        //console.log(data);
       })
       .catch((error) => {
         console.error("An error occurred while fetching incidents:", error);
@@ -27,11 +30,50 @@ function Home() {
         motivations.
       </p>
 
-      {incidents ? <Map incidents={incidents} /> : <p>Loading incidents...</p>}
-
       <div className="text-center text-gray-100 pt-28">
-        <Heatmap />
+        {incidents ? (
+          <Map incidents={incidents} />
+        ) : (
+          <p>Loading incidents...</p>
+        )}
       </div>
+      <div className="text-center text-gray-100 pt-28">
+        {incidents ? (
+          <Heatmap incidents={incidents} />
+        ) : (
+          <p>Loading heatmap...</p>
+        )}
+      </div>
+      <div className="text-center text-gray-100 pt-28">
+        {incidents ? (
+          <CategoryBarChart incidents={incidents} />
+        ) : (
+          <p>Loading Category Bar Chart...</p>
+        )}
+      </div>
+      <div className="text-center text-gray-100 pt-28">
+        {incidents ? (
+          <StateBarChart incidents={incidents} />
+        ) : (
+          <p>Loading State Bar Chart...</p>
+        )}
+      </div>
+      {/* <div>
+      <h2 className="text-xl font-semibold mb-2">Resources:</h2>
+      <ul className="list-disc pl-5">
+        <li><a href="#" className="text-blue-600">Report 1</a></li>
+        <li><a href="#" className="text-blue-600">Article 2</a></li>
+        <li><a href="#" className="text-blue-600">Data 3</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 className="text-xl font-semibold mb-2">Method:</h2>
+      <ul className="list-disc pl-5">
+        <li><a href="#" className="text-blue-600">Report 1</a></li>
+        <li><a href="#" className="text-blue-600">Article 2</a></li>
+        <li><a href="#" className="text-blue-600">Data 3</a></li>
+      </ul>
+    </div> */}
     </div>
   );
 }
