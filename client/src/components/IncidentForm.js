@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import * as Yup from "yup";
+import SuccessModal from "./SuccessModal";
 
 import {
   new_states_api,
@@ -14,6 +15,7 @@ import {
 import { addIncident } from "../api/API";
 
 export default function CreateReport() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const getSubcategoryOptions = (category) => {
     switch (category) {
       case "Caste Discrimination":
@@ -26,7 +28,7 @@ export default function CreateReport() {
         return category_Vigilante_violence;
       case "Sexual violence":
         return category_Sexual_violence;
-      case "State / Police/ Judicial Violence"://Please do not change any spaces, it needs to be consistent with the database
+      case "State / Police/ Judicial Violence": //Please do not change any spaces, it needs to be consistent with the database
         return category_State;
       default:
         return [];
@@ -57,20 +59,47 @@ export default function CreateReport() {
     INCI_SUB_CATEGORY: Yup.string().required(),
     INCI_PLACE_CITY_DISTRICT: Yup.string().required(),
     INCI_STATE_UT: Yup.string().required(),
-    INCI_SOURCE: Yup.string(),
+    INCI_SOURCE: Yup.string().test({
+      name: "conditionalValidation",
+      test: function (value) {
+        // Access the form values using `this.parent`
+        const selfReporting = this.parent.SELF_REPORTING;
+
+        // Apply the condition for validation
+        if (selfReporting) {
+          return (
+            !!value ||
+            this.createError({
+              message: "Field is required when self-reporting",
+            })
+          );
+        }
+
+        return true;
+      },
+    }),
     INCI_NAME: Yup.string(),
   });
 
-  const onSubmit = (data) => {
-    if (data.INCI_NAME === ''){
-      data.INCI_NAME = 'Anonymous'
+  const onSubmit = (data, { resetForm }) => {
+    if (data.INCI_NAME === "") {
+      data.INCI_NAME = "Anonymous";
     }
-    if (data.INCI_SOURCE === ''){
-      data.INCI_SOURCE = 'Self Reported'
+    if (data.INCI_SOURCE === "") {
+      data.INCI_SOURCE = "Self Reported";
     }
 
-    console.log(data)
+    console.log(data);
     addIncident(data);
+    // Set the state to open the modal
+    setIsModalOpen(true);
+    // Reset the form
+    resetForm();
+  };
+
+  const closeModal = () => {
+    // Close the modal and reset the state
+    setIsModalOpen(false);
   };
 
   function SubcategoryDropdown() {
@@ -82,7 +111,7 @@ export default function CreateReport() {
           htmlFor="inciCategory"
           className="block text-sm font-medium text-font"
         >
-          Category
+          Category:
         </label>
         <div className="relative rounded-md shadow-sm">
           <Field
@@ -115,7 +144,7 @@ export default function CreateReport() {
           htmlFor="inciSubCategory"
           className="block text-sm font-medium text-font mt-4"
         >
-          Subcategory
+          Subcategory:
         </label>
         <div className="mt-1 relative rounded-md shadow-sm">
           <Field
@@ -145,13 +174,15 @@ export default function CreateReport() {
 
   const SourceField = () => {
     const { values, setFieldValue } = useFormikContext();
-    
+
     return (
       <div className="mb-4 flex items-center">
         <div className="flex-1">
           <label
             htmlFor="inciSource"
-            className={`block text-sm font-medium text-font ${values.SELF_REPORTING ? 'text-gray-700' : 'text-font'}`}
+            className={`block text-sm font-medium text-font ${
+              values.SELF_REPORTING ? "text-gray-700" : "text-font"
+            }`}
           >
             Source: (Optional)
           </label>
@@ -160,11 +191,18 @@ export default function CreateReport() {
             name="INCI_SOURCE"
             placeholder="Enter Source..."
             disabled={values.SELF_REPORTING}
-            className={`mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${values.SELF_REPORTING ? 'bg-neutral-500 text-gray-500 cursor-not-allowed' : 'bg-white'}`}
+            className={`mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
+              values.SELF_REPORTING
+                ? "bg-neutral-500 text-gray-500 cursor-not-allowed"
+                : "bg-white"
+            }`}
           />
         </div>
         <div className="flex flex-col items-center ml-4">
-          <label htmlFor="selfReporting" className="mb-2 block text-sm font-medium text-font">
+          <label
+            htmlFor="selfReporting"
+            className="mb-2 block text-sm font-medium text-font"
+          >
             Self Reporting
           </label>
           <Field
@@ -173,11 +211,34 @@ export default function CreateReport() {
             name="SELF_REPORTING"
             className="h-7 w-7 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
             onChange={(e) => {
-              setFieldValue('SELF_REPORTING', e.target.checked);
+              setFieldValue("SELF_REPORTING", e.target.checked);
               if (e.target.checked) {
-                setFieldValue('INCI_SOURCE', '');
+                setFieldValue("INCI_SOURCE", "");
               }
             }}
+          />
+        </div>
+        <div className="flex-1">
+          <label
+            htmlFor="inciSourceEmail"
+            className={` text-sm font-medium text-font ${
+              values.SELF_REPORTING ? "block" : "hidden"
+            }`}
+          >
+            Email:
+          </label>
+          <Field
+            id="inciSourceEmail"
+            name="INCI_SOURCE"
+            placeholder="Enter Email..."
+            // disabled={values.SELF_REPORTING}
+            className={`mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 }`}
+            style={{ display: values.SELF_REPORTING ? "block" : "none" }}
+          />
+          <ErrorMessage
+            name="INCI_SOURCE"
+            component="span"
+            className="text-red-500 text-xs mt-1" // Added the text-red-500 class
           />
         </div>
       </div>
@@ -303,6 +364,14 @@ export default function CreateReport() {
           >
             Submit Incident Report
           </button>
+
+          {/* {isSubmitted && (
+            <p className="text-green-500 mt-2">
+              Form submitted successfully! Thank you for your report.
+            </p>
+          )} */}
+
+          {isModalOpen && <SuccessModal closeModal={closeModal} />}
         </Form>
       </Formik>
     </div>
