@@ -42,7 +42,6 @@ const StateBarChart = ({ incidents }) => {
 
     calculateStateCounts();
   }, [incidents]);
-  console.log(stateCounts);
 
   // Transform the counts into the desired format
   const resultArray = Object.entries(stateCounts).map(([months, State]) => {
@@ -52,7 +51,6 @@ const StateBarChart = ({ incidents }) => {
     });
     return result;
   });
-  console.log(resultArray);
 
   // Function to generate a random color for different states
   const getRandomColor = () => {
