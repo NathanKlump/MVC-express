@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import moment from "moment";
 import {
   BarChart,
   Bar,
@@ -19,12 +19,9 @@ const StateBarChart = ({ incidents }) => {
       const counts = {};
 
       incidents.forEach((incident) => {
-        const incidentDate = new Date(incident.INCI_DATE);
-        const yearMonth = `${incidentDate.getFullYear()}-${(
-          incidentDate.getMonth() + 1
-        )
-          .toString()
-          .padStart(2, "0")}`;
+        const incidentDate = moment(incident.INCI_DATE);
+
+        const yearMonth = incidentDate.format("YYYY-MM");
 
         if (!counts[yearMonth]) {
           counts[yearMonth] = {};
@@ -43,14 +40,16 @@ const StateBarChart = ({ incidents }) => {
     calculateStateCounts();
   }, [incidents]);
 
-  // Transform the counts into the desired format
-  const resultArray = Object.entries(stateCounts).map(([months, State]) => {
-    const result = { months };
-    Object.entries(State).forEach(([state, count]) => {
-      result[state] = count;
-    });
-    return result;
-  });
+  // Transform the counts into the desired format and sort by month in ascending order
+  const resultArray = Object.entries(stateCounts)
+    .map(([months, State]) => {
+      const result = { months };
+      Object.entries(State).forEach(([state, count]) => {
+        result[state] = count;
+      });
+      return result;
+    })
+    .sort((a, b) => new Date(a.months) - new Date(b.months));
 
   // Function to generate a random color for different states
   const getRandomColor = () => {
@@ -76,7 +75,7 @@ const StateBarChart = ({ incidents }) => {
                 className="custom-tooltip"
                 style={{ backgroundColor: "white", padding: "8px" }}
               >
-                <p style={{ color: "black"}}>{label}</p>
+                <p style={{ color: "black" }}>{label}</p>
                 {payload.map((entry, index) => (
                   <p key={index}>
                     <span
@@ -89,7 +88,9 @@ const StateBarChart = ({ incidents }) => {
                     </span>
                   </p>
                 ))}
-                <p style={{ color: "black" , fontWeight: "bold"}}>Total: {sum}</p>
+                <p style={{ color: "black", fontWeight: "bold" }}>
+                  Total: {sum}
+                </p>
               </div>
             );
           }}
