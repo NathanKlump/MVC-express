@@ -104,3 +104,14 @@ This code defines a development-only Express router endpoint, `/processIncidents
 4. **Batch Processing**: Incidents are processed in intervals (1 second apart) to manage the load, suitable for large datasets.
 
 This endpoint's primary function is to efficiently assign and update coordinates for incidents in a development environment.
+
+### IncidentForm.js 
+
+### SucessModel.js 
+
+### CategroyBarChart.js 
+
+### StateBarChart.js 
+
+### Heatmap.js 
+

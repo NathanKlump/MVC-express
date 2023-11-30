@@ -1,6 +1,6 @@
 import React from "react";
 
-const SuccessModal = ({ closeModel }) => {
+const SuccessModel = ({ closeModel }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center">
       <div className="bg-sky-100 p-6 rounded-md shadow-md">
@@ -18,4 +18,4 @@ const SuccessModal = ({ closeModel }) => {
   );
 };
 
-export default SuccessModal;
+export default SuccessModel;
