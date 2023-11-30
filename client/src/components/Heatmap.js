@@ -79,7 +79,7 @@ const Heatmap = ({ incidents }) => {
   const currentYear = new Date().getFullYear(); //Code to get the year of the current date, avoid users from filling in the wrong date(>current date)
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
-  // Create an array of the last three years
+  // Create an array from 2022 year-now
   const lastThreeYears = Array.from(
     { length: currentYear - 2021 }, //
     (_, index) => currentYear - index

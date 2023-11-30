@@ -25,6 +25,8 @@ const CategoryBarChart = ({ incidents }) => {
           .toString()
           .padStart(2, "0")}`;
 
+        //console.log("Incident Date:", incident.INCI_DATE);
+        //console.log("Year Month:", yearMonth);
         if (!counts[yearMonth]) {
           counts[yearMonth] = {};
         }
@@ -53,7 +55,7 @@ const CategoryBarChart = ({ incidents }) => {
       return result;
     }
   );
-  console.log(resultArray);
+  //console.log(resultArray);
   // const months = resultArray.map((entry) => entry.months);
   // console.log(months);
 
@@ -63,7 +65,34 @@ const CategoryBarChart = ({ incidents }) => {
         <CartesianGrid />
         <XAxis dataKey="months" />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          content={({ label, payload }) => {
+            const sum = payload.reduce((acc, entry) => acc + entry.value, 0);
+            return (
+              <div
+                className="custom-tooltip"
+                style={{ backgroundColor: "white", padding: "8px" }}
+              >
+                <p style={{ color: "black" }}>{label}</p>
+                {payload.map((entry, index) => (
+                  <p key={index}>
+                    <span
+                      style={{
+                        color:
+                          entry.dataKey === "months" ? "black" : entry.fill,
+                      }}
+                    >
+                      {`${entry.name}: ${entry.value}`}
+                    </span>
+                  </p>
+                ))}
+                <p style={{ color: "black", fontWeight: "bold" }}>
+                  Total: {sum}
+                </p>
+              </div>
+            );
+          }}
+        />
         <Legend />
         {categories.map((c) => {
           if (c === categories[0]) {

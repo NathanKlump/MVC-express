@@ -42,7 +42,6 @@ const StateBarChart = ({ incidents }) => {
 
     calculateStateCounts();
   }, [incidents]);
-  console.log(stateCounts);
 
   // Transform the counts into the desired format
   const resultArray = Object.entries(stateCounts).map(([months, State]) => {
@@ -52,7 +51,6 @@ const StateBarChart = ({ incidents }) => {
     });
     return result;
   });
-  console.log(resultArray);
 
   // Function to generate a random color for different states
   const getRandomColor = () => {
@@ -70,7 +68,32 @@ const StateBarChart = ({ incidents }) => {
         <CartesianGrid />
         <XAxis dataKey="months" />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          content={({ label, payload }) => {
+            const sum = payload.reduce((acc, entry) => acc + entry.value, 0);
+            return (
+              <div
+                className="custom-tooltip"
+                style={{ backgroundColor: "white", padding: "8px" }}
+              >
+                <p style={{ color: "black"}}>{label}</p>
+                {payload.map((entry, index) => (
+                  <p key={index}>
+                    <span
+                      style={{
+                        color:
+                          entry.dataKey === "months" ? "black" : entry.fill,
+                      }}
+                    >
+                      {`${entry.name}: ${entry.value}`}
+                    </span>
+                  </p>
+                ))}
+                <p style={{ color: "black" , fontWeight: "bold"}}>Total: {sum}</p>
+              </div>
+            );
+          }}
+        />
         <Legend />
         {states.map((c) => (
           <Bar key={c} dataKey={c} stackId="a" fill={getRandomColor()} /> //dynamic bar color

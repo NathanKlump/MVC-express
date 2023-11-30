@@ -97,7 +97,7 @@ export default function CreateReport() {
     resetForm();
   };
 
-  const closeModal = () => {
+  const closeModel = () => {
     // Close the modal and reset the state
     setIsModalOpen(false);
   };
@@ -371,7 +371,7 @@ export default function CreateReport() {
             </p>
           )} */}
 
-          {isModalOpen && <SuccessModal closeModal={closeModal} />}
+          {isModalOpen && <SuccessModal closeModel={closeModel} />}
         </Form>
       </Formik>
     </div>
