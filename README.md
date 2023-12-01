@@ -65,15 +65,17 @@ with your database credentials.
         - If using a GUI tool, there might be an option to import a database from a file. Navigate through the tool's menu to find this option.
 ## Key Components (Client)
 
-### CategroyBarChart.js 
+### CategroyBarChart.js && StateBarChart.js
 
-1. **Purpose**: The component is designed for visualizing incident counts for different categories per month using the Recharts library. The purpose of importing `categories` in CategroyBarChart component is to use this constant as a source of dynamic data. 
+1. **Purpose**: The component is designed for visualizing incident counts for different `categories`(`states`) per month using the Recharts library. The purpose of importing `categories`(`states`) in `CategroyBarChart.js`(`StateBarChart.js`) component is to use this constant as a source of dynamic data. 
 
 2. **recharts library**: Recharts is a charting library for React that simplifies the process of creating charts and graphs. BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer are used to build a responsive bar chart.
 
 3. **moment library**: The format method of the moment library is used here to ensure the consistency of the date and is not affected by month boundaries. This avoids counting errors when the event occurs on the last day of the previous month or the first day of the next month.
 
-4. **Static Bar Colors**: For each `category`, the `<Bar>` component's fill prop is set to a specific color value based on the category. and these colors don't change dynamically based on the content or order of the data.
+4. **Static Bar Colors(CategroyBarChart.js)**: For each `category`, the `<Bar>` component's fill prop is set to a specific color value based on the category. and these colors don't change dynamically based on the content or order of the data.
+
+5. **Dynamic Bar Colors(StateBarChart.js)**: For each `state`, the `<Bar>` component's fill prop is set to the result of calling `getRandomColor()`. This means each time the chart is refreshed the colors of the bars representing different states will be different.
 
 ### Contact.js
 
@@ -156,16 +158,6 @@ const EveryRecentYear = Array.from(
 
 1. **Purpose**: The Nav component shows a navigation bar with a company logo and links to different routes. It uses the Link component from react-router-dom for navigation. The navigation bar is designed to be responsive.
 
-### StateBarChart.js 
-
-1. **Purpose**: The component is designed for visualizing incident counts for different states per month using the Recharts library. The purpose of importing `states` in StateBarChart component is to use this constant as a source of dynamic data. 
-
-2. **recharts library**: Recharts is a charting library for React that simplifies the process of creating charts and graphs. BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer are used to build a responsive bar chart.
-
-3. **moment library**: The format method of the moment library is used here to ensure the consistency of the date and is not affected by month boundaries. This avoids counting errors when the event occurs on the last day of the previous month or the first day of the next month.
-
-4. **Dynamic Bar Colors**: For each `state`, the `<Bar>` component's fill prop is set to the result of calling `getRandomColor()`. This means each time the chart is refreshed the colors of the bars representing different states will be different.
-
 ## Key Components (Server)
 
 ### FindCoords.js
@@ -188,6 +180,4 @@ This code defines a development-only Express router endpoint, `/processIncidents
 4. **Batch Processing**: Incidents are processed in intervals (1 second apart) to manage the load, suitable for large datasets.
 
 This endpoint's primary function is to efficiently assign and update coordinates for incidents in a development environment.
-
-
 
