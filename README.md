@@ -96,10 +96,10 @@ with your database credentials.
 
 3. **CODE: Line 83-86 and Line 102-108**: This code creates an array named `EveryRecentYear` that contains a sequence of years starting from 2021 up to the current year. The array is then used to populate a `<select>` dropdown in a React component. if current year is 2025, `EveryRecentYear` would be an array containing `[2021, 2022, 2023, 2024, 2025]`. The array is then used to populate a <select> dropdown.
 
-```
+```JS
 //Line 83-86
 const EveryRecentYear = Array.from(
-    { length: currentYear - 2021 }, //
+    { length: currentYear - 2021 }, 
     (_, index) => currentYear - index
 );
 ...
