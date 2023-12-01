@@ -94,7 +94,7 @@ with your database credentials.
     - `classForValue`: A function that determines the CSS class for a given value, allowing for custom styling.
     - `tooltipDataAttrs`: Additional data attributes for tooltip customization.
 
-3. **CODE: Line 83-86 and Line 102-108**: This code creates an array named `EveryRecentYear` that contains a sequence of years starting from 2021 up to the current year. The array is then used to populate a `<select>` dropdown in a React component. if current year is 2025, `EveryRecentYear` would be an array containing `[2021, 2022, 2023, 2024, 2025]`. The array is then used to populate a `<select>` dropdown.
+3. **CODE: Line 83-86 and Line 102-108**: This code creates an array named `EveryRecentYear` that contains a sequence of years starting from 2022 up to the current year. The array is then used to populate a `<select>` dropdown in a React component. if current year is 2025, `EveryRecentYear` would be an array containing `[2022, 2023, 2024, 2025]`. The array is then used to populate a `<select>` dropdown.
 
 ```js
 //Line 83-86
@@ -102,7 +102,7 @@ const EveryRecentYear = Array.from(
     { length: currentYear - 2021 }, 
     (_, index) => currentYear - index
 );
-
+...
 //Line 102-108
 <select value={selectedYear} onChange={handleYearChange}>
     {EveryRecentYear.map((year) => (
