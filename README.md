@@ -118,10 +118,10 @@ const EveryRecentYear = Array.from(
 ### Home.js
 
 1. **Purpose**: The Home component responsible for rendering various visualizations related to religious violence incidents in India.
-- Map: A geographical map visualization `<Map />` that likely displays the geographical distribution of incidents.
-- Heatmap: A calendar heatmap visualization `<Heatmap />` that likely shows a temporal pattern of incidents.
-- Category Bar Chart: A bar chart visualization `<CategoryBarChart />` that likely displays incident counts by category.
-- State Bar Chart: A bar chart visualization `<StateBarChart />` that likely shows incident counts by state.
+    - Map: A geographical map visualization `<Map />` that likely displays the geographical distribution of incidents.
+    - Heatmap: A calendar heatmap visualization `<Heatmap />` that likely shows a temporal pattern of incidents.
+    - Category Bar Chart: A bar chart visualization `<CategoryBarChart />` that likely displays incident counts by category.
+    - State Bar Chart: A bar chart visualization `<StateBarChart />` that likely shows incident counts by state.
 
 2. **Code Comments**: The use of conditional rendering `{incidents ? (...) : (...)}` ensures that the visualizations are only rendered once the incident data is available. Otherwise the state will be loaded. 
 
