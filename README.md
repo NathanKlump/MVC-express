@@ -168,7 +168,7 @@ const EveryRecentYear = Array.from(
 
 ## Key Components (Server)
 
-### Backend FindCoords.js
+### FindCoords.js
 
 This JavaScript module implements a "3-tier fallback" strategy for obtaining geographical coordinates for incident data, with the aim of ensuring that coordinates are always provided, even if precise data is unavailable. Here's a concise overview:
 
@@ -178,7 +178,7 @@ This JavaScript module implements a "3-tier fallback" strategy for obtaining geo
     
 3. **Second Fallback - Default Coordinates**: In cases where state coordinates are also unavailable, it resorts to a default set of coordinates, applying a larger random offset for variability.
 
-### Backend FormatDataController.js
+### FormatDataController.js
 
 This code defines a development-only Express router endpoint, `/processIncidents`, designed to process a large amount of incident data lacking coordinates. It follows these steps:
 
